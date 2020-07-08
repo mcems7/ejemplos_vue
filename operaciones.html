@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<head>
+  <title>Ejercicio 1</title> 
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="styles.css"> 
+</head>
+<body>
+  <div id="aplicacion">
+    <div class="wrapper">
+      <div class="sidebar">
+        <ul>
+          <li v-on:click="opcionmenu='home'">Home</li>
+          <li v-on:click="opcionmenu='operacion1'">Operacion 1</li>
+          <li v-on:click="opcionmenu='operacion2'">Operacion 2</li>
+        </ul> 
+      </div>
+      <div class="main">
+        <menu-componente v-bind:menu="opcionmenu"></menu-componente>
+      </div>
+    </div>
+    
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>   
+
+  <script>
+    Vue.component('menu-componente', {
+        props: ['menu'],
+        template: `<div>
+                      <p v-if="menu=='home'">Hola mundo</p>
+                      <p v-if="menu=='operacion1'"><suma operacion="suma" numero1=2 numero2=4></suma></p>
+                      <p v-if="menu=='operacion2'"><suma operacion="multiplicacion" numero1=2 numero2=5></suma></p>
+                  </div>`
+      });
+Vue.component('suma', {
+   props: {
+    numero1: {
+      type: Number,
+      default: 0
+    },
+    numero2: {
+      type: Number,
+      default: 0
+    },
+    operacion: {
+      type: String,
+      default: ''
+    }
+   },
+  template: '<div>Operación {{ operacion }}\
+  <div><input tyle="number" v-model="numero1"></div>\
+  <div><input tyle="number" v-model="numero2"></div>\
+  <button v-on:click="calc">Calcular</button> Resultado:{{ counter }}</div>',
+  data: function () {
+    return {
+      counter: 0
+    }
+  },
+  methods: {
+    calc: function () {
+       if (this.operacion == 'suma'){ 
+          this.counter = parseInt(this.numero1)+parseInt(this.numero2);
+       }
+       if (this.operacion == 'multiplicacion'){ 
+          this.counter = parseInt(this.numero1)*parseInt(this.numero2);
+       }
+      this.$emit('calc')
+    }
+  },
+})
+    var app=new Vue({
+      el: '#aplicacion',
+      data:{ 
+        opcionmenu : 'home',
+        resultado : 0
+      }
+    })
+  </script>
+</body>
+</html>
