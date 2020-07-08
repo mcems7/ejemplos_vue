@@ -42,8 +42,8 @@
   template: `\
     <li>\
       {{ titulo }} {{ estado }}\
-      <button v-show="estado==\'Pendiente\'" v-on:click="$emit(\'estadoterminada\')">Marcar como Terminada</button>\
-      <button v-show="estado==\'Terminada\'" v-on:click="$emit(\'estadopendiente\')">Marcar como Pendiente</button>\
+      <button v-show="estado=='Pendiente'" v-on:click="$emit('estadoterminada')">Marcar como Terminada</button>\
+      <button v-show="estado=='Terminada'" v-on:click="$emit('estadopendiente')">Marcar como Pendiente</button>\
     </li>\
   `,     
   props: ['titulo', 'estado']
@@ -56,17 +56,17 @@ new Vue({
     tareas: [
       {
         id: 1,
-        titulo: 'Ejercicio hola mundo',
+        titulo: 'Tarea 1',
         estado: 'Pendiente',
       },
       {
         id: 2,
-        titulo: 'Administración de tareas',
+        titulo: 'Tarea 2',
         estado: 'Pendiente',
       },
       {
         id: 3,
-        titulo: 'Peticiones asincronas',
+        titulo: 'Tarea 3',
         estado: 'Pendiente',
       }
     ],
