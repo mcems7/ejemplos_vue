@@ -17,10 +17,11 @@
     >
     <button>+</button>
   </form>
+  <input placeholder="Buscar..." v-model="buscarTarea" type="search">
   <ul>
     <li
       is="tarea-item"
-      v-for="(tarea, index) in tareas"
+      v-for="(tarea, index) in filteredClients"
       v-if="tarea.estado==verTareas"
       v-bind:key="tarea.id"
       v-bind:titulo="tarea.titulo"
@@ -56,23 +57,33 @@ new Vue({
     tareas: [
       {
         id: 1,
-        titulo: 'Tarea 1',
+        titulo: 'Primera',
         estado: 'Pendiente',
       },
       {
         id: 2,
-        titulo: 'Tarea 2',
+        titulo: 'Segunda',
         estado: 'Pendiente',
       },
       {
         id: 3,
-        titulo: 'Tarea 3',
+        titulo: 'Tercera',
         estado: 'Pendiente',
       }
     ],
     sigTareaId: 4,
+    buscarTarea: '',
     verTareas: 'Pendiente'
   },
+  computed: { 
+   filteredClients() {
+    const search = this.buscarTarea.toLowerCase().trim();
+
+    if (!search) return this.tareas;
+
+     return this.tareas.filter(c => c.titulo.toLowerCase().indexOf(search) > -1);
+    }
+   },
   methods: {
     agregarTarea: function () {
       this.tareas.push({
